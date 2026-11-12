@@ -1,4 +1,10 @@
 package com.grupo2.reservas.exception;
 
-public class DatosInvalidosException {
+ // Esta excepción es personalizada para verificar por ejemplo datos inválidos
+
+public class DatosInvalidosException extends RuntimeException {
+
+    public DatosInvalidosException(String mensaje) {
+        super(mensaje);
+    }
 }

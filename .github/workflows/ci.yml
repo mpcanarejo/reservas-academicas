@@ -21,8 +21,11 @@ jobs:
           java-version: '27'
           cache: maven
 
-      # Nota: los tests se omiten hasta que el equipo configure la base de datos
-      # en src/main/resources/application.properties. Cuando esté lista,
-      # cambiar -DskipTests por verify para ejecutarlos.
-      - name: Compilar y empaquetar
-        run: ./mvnw -B package -DskipTests
+      - name: Compilar y ejecutar tests
+        run: ./mvnw -B verify
+        env:
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:ci;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
