@@ -46,8 +46,8 @@ public class ReservaService {
         DisponibilidadDTO disponibilidad = consultarDisponibilidad(
                 dto.getIdEspacio(),
                 dto.getFechaReserva(),
-                dto.getHoraInicio(),
-                dto.getHoraFin()
+                dto.getHora_inicio(),
+                dto.getHora_fin()
         );
 
         if (!disponibilidad.getDisponible()) {
@@ -76,8 +76,8 @@ public class ReservaService {
         reserva.setUsuario(usuario);
         reserva.setEspacio(espacio);
         reserva.setFechaReserva(dto.getFechaReserva());
-        reserva.setHoraInicio(dto.getHoraInicio());
-        reserva.setHoraFin(dto.getHoraFin());
+        reserva.setHoraInicio(dto.getHora_inicio());
+        reserva.setHoraFin(dto.getHora_fin());
         reserva.setEstado("ACTIVA");
 
         return reservaRepository.save(reserva);
@@ -122,8 +122,8 @@ public class ReservaService {
 
         disponibilidad.setIdEspacio(idEspacio);
         disponibilidad.setFecha(fecha);
-        disponibilidad.setHora_inicio(hora_inicio);
-        disponibilidad.setHora_fin(hora_fin);
+        disponibilidad.setHoraInicio(horaInicio);
+        disponibilidad.setHoraFin(horaFin);
         disponibilidad.setDisponible(!ocupada);
 
         return disponibilidad;
@@ -153,15 +153,15 @@ public class ReservaService {
                 dto.getIdUsuario() == null ||
                 dto.getIdEspacio() == null ||
                 dto.getFechaReserva() == null ||
-                dto.getHoraInicio() == null ||
-                dto.getHoraFin() == null) {
+                dto.getHora_inicio() == null ||
+                dto.getHora_fin() == null) {
 
             throw new RuntimeException(
                     "Todos los datos de la reserva son obligatorios"
             );
         }
 
-        validarHorario(dto.getHoraInicio(), dto.getHoraFin());
+        validarHorario(dto.getHora_inicio(), dto.getHora_fin());
     }
 
     // 7. Validar horarios
